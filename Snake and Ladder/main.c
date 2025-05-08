@@ -238,24 +238,24 @@ void LoadAssets()
 
     player[0].texture = LoadTexture("resources/pieceBlue.png");
     player[0].source = (Rectangle){0, 0, player[0].texture.width, player[0].texture.height};
-    player[0].position = 98;
-    player[0].previous_position = 98;
+    player[0].position = 1;
+    player[0].previous_position = 1
 
     player[1].texture = LoadTexture("resources/pieceGreen.png");
     player[1].source = (Rectangle){0, 0, player[1].texture.width, player[1].texture.height};
-    player[1].position = 98;
-    player[1].previous_position = 98;
+    player[1].position = 1;
+    player[1].previous_position = 1;
 
     player[2].texture = LoadTexture("resources/pieceRed.png");
     player[2].source = (Rectangle){0, 0, player[2].texture.width, player[2].texture.height};
-    player[2].position = 98;
-    player[2].previous_position = 98;
+    player[2].position = 1;
+    player[2].previous_position = 1;
     
 
     player[3].texture = LoadTexture("resources/pieceYellow.png");
     player[3].source = (Rectangle){0, 0, player[3].texture.width, player[3].texture.height};
-    player[3].position = 98;
-    player[3].previous_position =98;
+    player[3].position = 1;
+    player[3].previous_position =1;
 
     snake1.texture = LoadTexture("resources/snake1.png");
     snake1.source = (Rectangle){0, 0, snake1.texture.width, snake1.texture.height};
