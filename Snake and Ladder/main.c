@@ -99,7 +99,7 @@ Player player[4];
 Snakes snake1, snake2, snake3, snake4;
 Rectangle boardFrame = (Rectangle){47, 56, 645, 645};
 Sound dice_sound, moving_sound, error_sound, ladder_up, winner, CJ;
-//Music bg_music;
+Music bg_music;
 int snakeHeads[]={81, 45, 96, 33};  
 int snakeTails[]={60,23, 68, 7};
 int LadderStart[]={3, 38, 27, 72};   
@@ -129,22 +129,22 @@ int main(void)
     InitAudioDevice();
     InitializeCells();
     LoadAssets();
-    //bg_music=LoadMusicStream("resources/bg-music-1.mp3");
+    bg_music=LoadMusicStream("resources/bg-music-1.mp3");
     dice_sound = LoadSound("resources/dice-sound.ogg");
     moving_sound = LoadSound("resources/moving-sound.ogg");
     error_sound = LoadSound("resources/error-sound.ogg");
     ladder_up = LoadSound("resources/ladder-up.ogg");
     winner = LoadSound("resources/winner.ogg");
     CJ = LoadSound("resources/Voicy_Ah-shit_-here-we-go-again.ogg");
-    //PlayMusicStream(bg_music);
+    PlayMusicStream(bg_music);
     SetGameState(WAITING);
     strcpy(message, "Press B to change background\nClick on the die to Roll");
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
-        //UpdateMusicStream(bg_music);
+        UpdateMusicStream(bg_music);
         UpdateAssets();
     }
-    //StopMusicStream(bg_music);
+    StopMusicStream(bg_music);
     UnloadTextures();
     CloseAudioDevice();
     CloseWindow();
@@ -177,7 +177,7 @@ void UpdateAssets(void)
     DrawFPS(1120, 10);
     if (GetGameState()==OVER)
     {
-        //PauseMusicStream(bg_music);
+        PauseMusicStream(bg_music);
         strcpy(message, "");
         strcpy(message, "Player ");
         strcat(message, PlayerNames[cur_turn%4]);
@@ -555,7 +555,7 @@ int CheckLadders(Turn cur_turn){
 }
 
 void ResetGameVariables(void){
-    //ResumeMusicStream(bg_music);
+    ResumeMusicStream(bg_music);
     cur_turn=0;
     current_die_face=1;
     for (int k = 0; k < 4; k++){
