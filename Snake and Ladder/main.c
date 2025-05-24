@@ -109,6 +109,7 @@ char PlayerNames[4][25]={"BLUE", "GREEN", "RED", "YELLOW"};
 
 void ResetGameVariables(void);
 void LoadAssets(void);
+void InitSonds(void);
 void UpdateAssets(void);
 void InitializeCells(void);
 void DrawPlayers(void);
@@ -129,13 +130,7 @@ int main(void)
     InitAudioDevice();
     InitializeCells();
     LoadAssets();
-    bg_music=LoadMusicStream("resources/bg-music-1.mp3");
-    dice_sound = LoadSound("resources/dice-sound.ogg");
-    moving_sound = LoadSound("resources/moving-sound.ogg");
-    error_sound = LoadSound("resources/error-sound.ogg");
-    ladder_up = LoadSound("resources/ladder-up.ogg");
-    winner = LoadSound("resources/winner.ogg");
-    CJ = LoadSound("resources/Voicy_Ah-shit_-here-we-go-again.ogg");
+    InitSonds();
     PlayMusicStream(bg_music);
     SetGameState(WAITING);
     strcpy(message, "Press B to change background\nClick on the die to Roll");
@@ -156,13 +151,13 @@ void UpdateAssets(void)
 
     BeginDrawing();
     ClearBackground((Color){255, 119, 210, 255}); // purple color
-    DrawTexturePro(backgroung[bg_index%6],
+        DrawTexturePro(backgroung[bg_index%6],
                     (Rectangle){0,0,backgroung[bg_index%6].width,backgroung[bg_index%6].height}, 
                     (Rectangle){0 , 0,screenWidth, screenHeight},
                     (Vector2){0,0}, 
                     0, WHITE);                          // Drawing Background image
     DrawTexture(board, 10, 20, WHITE);
-    DrawRectangle(789, 450, 120, 120, BLUE);
+    DrawRectangle(789, 450, 120, 120, BLUE);            // these are the rectangle where the die will appear
     DrawRectangle(989, 450, 120, 120, GREEN);
     DrawRectangle(789 , 600, 120, 120, RED);
     DrawRectangle(989, 600, 120, 120, YELLOW);
@@ -175,15 +170,13 @@ void UpdateAssets(void)
     DrawTexturePro(snake3.texture, snake3.source, snake3.dest, snake3.origin, -10, WHITE);
     DrawTexturePro(snake4.texture, snake4.source, snake4.dest, snake4.origin, 0, WHITE);
     DrawFPS(1120, 10);
+
     if (GetGameState()==OVER)
     {
         PauseMusicStream(bg_music);
         strcpy(message, "");
-        strcpy(message, "Player ");
-        strcat(message, PlayerNames[cur_turn%4]);
-        strcat(message, " Won the game\nCongratulations!!\nPress R to reset");
+        sprintf(message, "Player %s won the game\nCongratulations!\nPress R to reset", PlayerNames[cur_turn%4]);
         DrawText( message, 750,200, 28, WHITE);
-        DrawText( message, 750,201, 28, WHITE);
         if (IsKeyPressed(KEY_R))
         {
             ResetGameVariables();
@@ -209,15 +202,16 @@ void UpdateAssets(void)
 
         if (IsKeyPressed(KEY_W))
         {
-            Gspeedptr+=5;
+            Gspeedptr = (Gspeedptr+5)%6;
             sprintf(message, "Game Speed = %.1f", (1.0 - GameSpeed[Gspeedptr%6])*100.0 );
             DrawText(message, 750, 320, 28, WHITE);
         }
         
         if (IsKeyPressed(KEY_B))
         {
-            bg_index++;
+            bg_index=(bg_index+1)%6;
         }
+
         if (IsKeyPressed(KEY_C) && IsKeyPressed(KEY_H))
         {
             for (int k = 0; k < 4; k++){
@@ -409,6 +403,16 @@ void LoadAssets()
     backgroung[5]=LoadTexture("resources/background6.png");
 }
 
+void InitSonds(void){
+    bg_music=LoadMusicStream("resources/bg-music-1.mp3");
+    dice_sound = LoadSound("resources/dice-sound.ogg");
+    moving_sound = LoadSound("resources/moving-sound.ogg");
+    error_sound = LoadSound("resources/error-sound.ogg");
+    ladder_up = LoadSound("resources/ladder-up.ogg");
+    winner = LoadSound("resources/winner.ogg");
+    CJ = LoadSound("resources/Voicy_Ah-shit_-here-we-go-again.ogg");
+}
+
 void InitializeCells(void)
 {
     for (int i = 0; i < 10; i++)
@@ -563,7 +567,6 @@ void ResetGameVariables(void){
         player[k].previous_position =1;
     }
 }
-
 
 void StartTimer(Timer *timer, float LifeTime){
     if(timer!=NULL){
