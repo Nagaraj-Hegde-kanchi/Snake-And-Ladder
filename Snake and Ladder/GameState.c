@@ -3,6 +3,7 @@
 
 typedef enum GameState
 {
+    INIT_N,
 	WAITING,
 	ROLLING,
     MOVING,
