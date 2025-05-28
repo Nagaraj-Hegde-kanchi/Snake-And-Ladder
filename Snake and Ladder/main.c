@@ -20,7 +20,7 @@ int main(void)
     LoadAssets();
     InitSonds();
     PlayMusicStream(bg_music);
-    SetGameState(WAITING);
+    SetGameState(INIT_N);
     strcpy(message, "Press B to change background\nClick on the die to Roll");
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
@@ -59,7 +59,42 @@ void UpdateAssets(void)
     DrawTexturePro(snake[3].texture, snake[3].source, snake[3].dest, snake[3].origin, 0, WHITE);
     DrawFPS(1120, 10);
 
-    if (GetGameState()==OVER)
+    if (GetGameState()==INIT_N)             // get the number of players
+    {
+        static bool temp=true;      // for cursor animation
+        if (temp)
+        {
+            DrawText("Number Of Players: | " , 750,150, 30, RED);
+            temp=(!temp);
+        }
+        else{
+            DrawText("Number Of Players:  " , 750,150, 30, RED);
+            temp=(!temp);
+        }
+        if (IsKeyPressed(KEY_B))
+        {
+            bg_index=(bg_index+1)%6;
+        }
+        if (IsKeyPressed(KEY_ONE))
+        {
+            n=1;  SetGameState(WAITING);   
+        }
+        else if(IsKeyPressed(KEY_TWO))
+        {
+            n=2;  SetGameState(WAITING);
+        }
+        else if(IsKeyPressed(KEY_THREE))
+        {
+            n=3;  SetGameState(WAITING);
+        }
+        else if (IsKeyPressed(KEY_FOUR))
+        {
+            n=4; SetGameState(WAITING);
+        }
+        
+    }
+    
+    else if (GetGameState()==OVER)
     {
         PauseMusicStream(bg_music);
         strcpy(message, "");
@@ -70,9 +105,8 @@ void UpdateAssets(void)
             ResetGameVariables();
             PlaySound(CJ);
             strcpy(message, " Better Luck this time!!");
-            SetGameState(WAITING);
+            SetGameState(INIT_N);
         }
-        
     }
 
     else if (GetGameState()==WAITING)
