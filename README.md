@@ -27,7 +27,10 @@ A simple yet fun **2D Snake and Ladder Game** built using **C language** and the
 
 ## 🖼️ Screenshots
 
-> *(Add some gameplay screenshots here if you have any — a picture speaks louder than words!)*
+> ## 🖼️ Screenshots
+
+![Gameplay Screenshot](assets/screenshot.png)
+
 
 ---
 
