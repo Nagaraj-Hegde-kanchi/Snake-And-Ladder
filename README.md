@@ -27,8 +27,6 @@ A simple yet fun **2D Snake and Ladder Game** built using **C language** and the
 
 ## 🖼️ Screenshots
 
-> ## 🖼️ Screenshots
-
 ![Gameplay Screenshot](https://i.postimg.cc/4N2PKG4F/Snake-and-Ladder-7-3-2025-3-21-24-PM.png)
 ---
 
